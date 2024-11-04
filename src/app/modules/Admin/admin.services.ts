@@ -6,7 +6,6 @@ const getAllAdmin = async (params: any) => {
   const { searchTerm, ...filterData } = params;
   const andConditions: Prisma.AdminWhereInput[] = [];
   const adminSearchAbleFields = ["name", "email"];
-  console.log(filterData);
 
   if (params.searchTerm) {
     andConditions.push({
