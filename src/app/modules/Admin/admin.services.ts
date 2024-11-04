@@ -3,9 +3,9 @@ import { PrismaClient } from "@prisma/client";
 const prsima = new PrismaClient();
 
 const getAllAdmin = async (params: any) => {
-  console.log({ params });
-  const result = await prsima.admin.findMany({
-    where: {
+  const andConditions = [];
+  if (params.searchTerm) {
+    andConditions.push({
       OR: [
         {
           name: {
@@ -20,7 +20,13 @@ const getAllAdmin = async (params: any) => {
           },
         },
       ],
-    },
+    });
+  }
+
+  const whereConditions = { AND: andConditions };
+
+  const result = await prsima.admin.findMany({
+    where: whereConditions,
   });
   return result;
 };
