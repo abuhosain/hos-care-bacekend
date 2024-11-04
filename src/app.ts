@@ -3,7 +3,13 @@ import cors from "cors";
 import { UserRoutes } from "./app/modules/User/user.routes";
 
 const app: Application = express();
+
+// midleware
 app.use(cors());
+
+// parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req: Request, res: Response) => {
   res.send({

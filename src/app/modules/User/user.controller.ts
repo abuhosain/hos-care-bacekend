@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { UserService } from "./user.services";
 
 const createAdmin = async (req: Request, res: Response) => {
-  const result = await UserService.createAdmin();
+  // console.log(req.body);
+  const result = await UserService.createAdmin(req.body);
   res.send(result);
 };
 
