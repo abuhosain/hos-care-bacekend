@@ -1,7 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { adminSearchAbleFields } from "./admin.contstance";
 
-const prsima = new PrismaClient();
+const prisma = new PrismaClient();
 
 const calculatePagination = (options: {
   page?: number;
@@ -51,12 +51,12 @@ const getAllAdmin = async (params: any, options: any) => {
 
   const whereConditions: Prisma.AdminWhereInput = { AND: andConditions };
 
-  const result = await prsima.admin.findMany({
+  const result = await prisma.admin.findMany({
     where: whereConditions,
     skip,
     take: limit,
     orderBy:
-      options.sortBy && options.sortOrder
+      options.sortBy && options.sortOrderf
         ? {
             [options.sortBy]: options.sortOrder,
           }
@@ -64,7 +64,19 @@ const getAllAdmin = async (params: any, options: any) => {
             createdAt: "desc",
           },
   });
-  return result;
+
+  const total = await prisma.admin.count({
+    where: whereConditions,
+  });
+
+  return {
+    meta: {
+      limit,
+      page,
+      total,
+    },
+    data: result,
+  };
 };
 
 export const AdminServices = {
