@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Admin, Prisma, PrismaClient } from "@prisma/client";
 import { adminSearchAbleFields } from "./admin.contstance";
 
 const prisma = new PrismaClient();
@@ -88,7 +88,18 @@ const getAdminById = async (id: string) => {
   return result;
 };
 
+const updatAdminIntoDb = async (id: string, data: Partial<Admin>) => {
+  const result = await prisma.admin.update({
+    where: {
+      id,
+    },
+    data,
+  });
+  return result;
+};
+
 export const AdminServices = {
   getAllAdmin,
   getAdminById,
+  updatAdminIntoDb,
 };
