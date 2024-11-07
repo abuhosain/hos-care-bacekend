@@ -3,16 +3,7 @@ import { AdminServices } from "./admin.services";
 import pick from "../../../shared/pick";
 import { adminFilterableFields } from "./admin.contstance";
 import sendResponse from "../../../shared/sendResponse";
-
-const catchAsynch = (fn: RequestHandler) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await fn(req, res, next);
-    } catch (err) {
-      next(err);
-    }
-  };
-};
+import catchAsynch from "../../../shared/catchAsynch";
 
 const getAllAdmin: RequestHandler = catchAsynch(async (req, res) => {
   const filters = pick(req.query, adminFilterableFields);
