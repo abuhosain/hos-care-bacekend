@@ -2,6 +2,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import router from "./app/routes";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
+import { error } from "console";
 
 const app: Application = express();
 
@@ -22,5 +23,17 @@ app.use("/api/v1", router);
 
 // error handler
 app.use(globalErrorHandler);
+
+// not found route
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).json({
+    success: false,
+    message: "Api not found",
+    error: {
+      path: req.originalUrl,
+      message: "Your request path is not find",
+    },
+  });
+});
 
 export default app;
