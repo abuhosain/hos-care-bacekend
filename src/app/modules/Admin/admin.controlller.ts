@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import e, { NextFunction, Request, Response } from "express";
 import { AdminServices } from "./admin.services";
 import pick from "../../../shared/pick";
 import { adminFilterableFields } from "./admin.contstance";
 import sendResponse from "../../../shared/sendResponse";
 
-const getAllAdmin = async (req: Request, res: Response) => {
+const getAllAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const filters = pick(req.query, adminFilterableFields);
     const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
@@ -18,15 +18,15 @@ const getAllAdmin = async (req: Request, res: Response) => {
       data: result.data,
     });
   } catch (err: any) {
-    sendResponse(res, {
-      statusCode: 500,
-      success: false,
-      message: err?.name || "Admin fetched failed",
-    });
+    next(err);
   }
 };
 
-const getAdminById = async (req: Request, res: Response) => {
+const getAdminById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { id } = req.params;
   try {
     const result = await AdminServices.getAdminById(id);
@@ -37,15 +37,15 @@ const getAdminById = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err?.name || "Admin fetched failed",
-      error: err,
-    });
+    next(err);
   }
 };
 
-const updateAdminIntoDb = async (req: Request, res: Response) => {
+const updateAdminIntoDb = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { id } = req.params;
   const updatedData = req.body;
   try {
@@ -58,15 +58,15 @@ const updateAdminIntoDb = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err?.name || "Admin update failed",
-      error: err,
-    });
+    next(err);
   }
 };
 
-const deleteFromDb = async (req: Request, res: Response) => {
+const deleteFromDb = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { id } = req.params;
 
   try {
@@ -78,15 +78,15 @@ const deleteFromDb = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err?.name || "Admin deleted failed",
-      error: err,
-    });
+    next(err);
   }
 };
 
-const softDeleteFromDb = async (req: Request, res: Response) => {
+const softDeleteFromDb = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { id } = req.params;
   try {
     const result = await AdminServices.softDeleteFromDb(id);
@@ -98,11 +98,7 @@ const softDeleteFromDb = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err?.name || "Admin deleted failed",
-      error: err,
-    });
+    next(err);
   }
 };
 
