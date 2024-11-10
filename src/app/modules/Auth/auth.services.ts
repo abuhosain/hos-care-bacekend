@@ -37,6 +37,11 @@ const loginUser = async (payload: { email: string; password: string }) => {
   };
 };
 
+const refrshToken = async (token: string) => {
+  console.log("refreshTlken", token);
+};
+
 export const AuthServices = {
   loginUser,
+  refrshToken,
 };
