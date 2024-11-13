@@ -57,6 +57,18 @@ const deleteFromDb = catchAsynch(
     });
   }
 );
+// const deleteFromDb = catchAsynch(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     const { id } = req.params;
+//     const result = await AdminServices.deleteFromDb(id);
+//     sendResponse(res, {
+//       statusCode: 200,
+//       success: true,
+//       message: "Admin deleted successfully",
+//       data: result,
+//     });
+//   }
+// );
 
 const softDeleteFromDb = catchAsynch(
   async (req: Request, res: Response, next: NextFunction) => {
