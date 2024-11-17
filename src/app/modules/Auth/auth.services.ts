@@ -46,7 +46,7 @@ const refrshToken = async (token: string) => {
   try {
     decodeToken = JwtHelpers.verifyToken(
       token,
-      config.jwt.jwt_secret as Secret
+      config.jwt.refresh_token as Secret
     );
     console.log(decodeToken);
   } catch (err) {
