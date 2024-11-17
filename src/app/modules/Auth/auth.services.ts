@@ -72,7 +72,16 @@ const refrshToken = async (token: string) => {
   };
 };
 
+const changePassword = async (user: any, payload: any) => {
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      email: payload.email,
+    },
+  });
+};
+
 export const AuthServices = {
   loginUser,
   refrshToken,
+  changePassword,
 };

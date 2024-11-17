@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { JwtHelpers } from "../helpers/jwtHelpers";
-import { Secret } from "jsonwebtoken";
+import { JwtPayload, Secret } from "jsonwebtoken";
 import config from "../config";
 import ApiError from "../errors/ApiError";
 import httpStatus from "http-status";
@@ -16,7 +16,8 @@ const auth = (...roles: string[]) => {
         token,
         config.jwt.jwt_secret as Secret
       );
-      //   console.log(verifiedUser);
+      // console.log(verifiedUser);
+      req.user = verifiedUser;
       if (roles.length && !roles.includes(verifiedUser.role)) {
         throw new ApiError(httpStatus.FORBIDDEN, "Forbidden");
       }
