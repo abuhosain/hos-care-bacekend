@@ -30,7 +30,7 @@ const refreshToken = catchAsynch(async (req, res) => {
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: "Logged in successfully",
+    message: "AccessToken Generatesuccessfully",
     data: result,
     // data: {
     //   accessToken: result.accessToken,
@@ -44,12 +44,8 @@ const changePassword = catchAsynch(async (req, res) => {
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: "Logged in successfully",
+    message: "password change successfully",
     data: result,
-    // data: {
-    //   accessToken: result.accessToken,
-    //   needPasswordChange: result.needPasswordChange,
-    // },
   });
 });
 
