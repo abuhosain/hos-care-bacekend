@@ -122,7 +122,10 @@ const forgotPassword = async (payload: { email: string }) => {
     config.jwt.reset_pass_token_expire_in as string
   );
   console.log(resetPassToken);
-  return resetPassToken;
+  const resetPassLink =
+    config.reset_pass_link + `?email=${userData.email}&token=${resetPassToken}`;
+  console.log(resetPassLink);
+  //  http://localhost:3000/reset-pass?email=abuhosain@gmail.com&token=resetPassToken
 };
 
 export const AuthServices = {
