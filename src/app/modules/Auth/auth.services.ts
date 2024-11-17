@@ -44,7 +44,10 @@ const loginUser = async (payload: { email: string; password: string }) => {
 const refrshToken = async (token: string) => {
   let decodeToken;
   try {
-    decodeToken = JwtHelpers.verifyToken(token, "abcdefgh");
+    decodeToken = JwtHelpers.verifyToken(
+      token,
+      config.jwt.jwt_secret as Secret
+    );
     console.log(decodeToken);
   } catch (err) {
     throw new Error("You are not authorized");
