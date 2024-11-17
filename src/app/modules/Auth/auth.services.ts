@@ -105,8 +105,29 @@ const changePassword = async (user: any, payload: any) => {
   };
 };
 
+const forgotPassword = async (payload: { email: string }) => {
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      email: payload.email,
+      status: UserStatus.ACTIVE,
+    },
+  });
+
+  const resetPassToken = JwtHelpers.generateToken(
+    {
+      email: userData.email,
+      role: userData.role,
+    },
+    config.jwt.reset_pass_token as Secret,
+    config.jwt.reset_pass_token_expire_in as string
+  );
+  console.log(resetPassToken);
+  return resetPassToken;
+};
+
 export const AuthServices = {
   loginUser,
   refrshToken,
   changePassword,
+  forgotPassword,
 };
