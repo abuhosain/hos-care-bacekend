@@ -1,6 +1,7 @@
 import multer from "multer";
 import path from "path";
 import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
 
 // Configuration
 cloudinary.config({
@@ -22,15 +23,24 @@ const upload = multer({ storage: storage });
 
 const uploadToCloudinary = async (file: any) => {
   // Upload an image
-  const uploadResult = await cloudinary.uploader
-    .upload("D:/level2/Backend/hos-care-backend/uploads/hosain.png", {
-      public_id: "shoes",
-    })
-    .catch((error) => {
-      console.log(error);
-    });
 
-  console.log(uploadResult);
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload(
+      file.path,
+      {
+        public_id: file.originalname,
+      },
+      (error, result) => {
+        fs.unlinkSync(file.path);
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+  console.log(file);
 };
 
 export const fileUploader = {

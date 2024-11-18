@@ -19,7 +19,7 @@ import sendResponse from "../../../shared/sendResponse";
 //     });
 //   }
 // };
-const createAdmin = catchAsynch(async (req, res) => {
+const createAdmin = catchAsynch(async (req, res, next) => {
   const result = await UserService.createAdmin(req);
   sendResponse(res, {
     statusCode: 200,
