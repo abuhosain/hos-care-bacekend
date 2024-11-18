@@ -22,8 +22,8 @@ router.post(
   auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   fileUploader.upload.single("file"),
   (req: Request, res: Response, next: NextFunction) => {
-    req.body = UserValidation.creatAdmin.parse(JSON.parse(req.body.data));
-    return UserController.createAdmin(req, res, next);
+    req.body = UserValidation.createDoctor.parse(JSON.parse(req.body.data));
+    return UserController.createDoctor(req, res, next);
   }
 );
 
