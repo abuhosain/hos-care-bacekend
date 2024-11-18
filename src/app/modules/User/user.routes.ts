@@ -6,6 +6,13 @@ import { fileUploader } from "../../helpers/fileUploader";
 import { UserValidation } from "./user.validaiton";
 
 const router = express.Router();
+
+router.get(
+  "/",
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  UserController.getAllUserFromDb
+);
+
 // create admiin
 router.post(
   "/create-admin",
