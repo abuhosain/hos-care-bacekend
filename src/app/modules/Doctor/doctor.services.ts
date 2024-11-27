@@ -29,7 +29,7 @@ const getAllFromDB = async (
 
   if (specialties && specialties.length > 0) {
     andConditions.push({
-      DoctorSpecialties: {
+      doctorSpecialties: {
         some: {
           specialities: {
             title: {
@@ -65,14 +65,14 @@ const getAllFromDB = async (
     orderBy:
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
-        : { createdAt: "desc" },
+        : { averageRating: "desc" },
     include: {
-      DoctorSpecialties: {
+      doctorSpecialties: {
         include: {
           specialities: true,
         },
       },
-      Review: {
+      review: {
         select: {
           rating: true,
         },
@@ -101,12 +101,12 @@ const getByIdFromDB = async (id: string): Promise<Doctor | null> => {
       isDeleted: false,
     },
     include: {
-      DoctorSpecialties: {
+      doctorSpecialties: {
         include: {
           specialities: true,
         },
       },
-      Review: true,
+      review: true,
     },
   });
   return result;
@@ -165,7 +165,7 @@ const updateIntoDB = async (id: string, payload: IDoctorUpdate) => {
       id: doctorInfo.id,
     },
     include: {
-      DoctorSpecialties: {
+      doctorSpecialties: {
         include: {
           specialities: true,
         },

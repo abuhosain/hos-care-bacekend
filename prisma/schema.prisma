@@ -24,7 +24,7 @@ model User {
   updatedAt          DateTime   @updatedAt
   admin              Admin?
   doctor             Doctor?
-  Patient            Patient?
+  patient            Patient?
 
   @@map("users")
 }
@@ -54,7 +54,7 @@ model Doctor {
   registrationNumber  String
   experience          Int                 @default(0)
   gender              Gender
-  appointmentFee      Float               @default(0)
+  appointmentFee      Int
   qualification       String
   currentWorkingPlace String
   designation         String
