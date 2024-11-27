@@ -4,6 +4,7 @@ import auth from "../../middlewares/auth";
 import { UserRole } from "@prisma/client";
 import validateRequest from "../../middlewares/validateRequest";
 import { DoctorScheduleValidation } from "./doctorSchedule.validation";
+import { DoctorScheduleController } from "./doctorSchedule.controller";
 
 const router = express.Router();
 
