@@ -13,6 +13,17 @@ const inserIntoDB = catchAsynch(async (req, res) => {
   });
 });
 
+const getAllFromDB = catchAsynch(async (req, res) => {
+  const result = await SpecialtiesService.getAllFromDB();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Specialties data fetched successfully",
+    data: result,
+  });
+});
+
 export const SpecialtiesController = {
   inserIntoDB,
+  getAllFromDB,
 };
